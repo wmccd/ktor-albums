@@ -2,7 +2,7 @@
 
 Ktor is the standard mechanism for building web service APIs in Kotlin
 
-The example app in this repository is to for musical acts and their albums
+The example app in this repository is for musical acts and their albums
 
 ## Curl Statements
 
