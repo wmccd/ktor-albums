@@ -13,8 +13,6 @@ import io.ktor.server.routing.*
 
 fun Route.actRouting() {
 
-    println("actRouting HERE")
-
     route("/act") {
         get {
             if (actStorage.isNotEmpty()) {
@@ -39,7 +37,7 @@ fun Route.actRouting() {
             val actJson = call.receive<String>()
             val actModel = Gson().fromJson(actJson, Act::class.java)
             actStorage.add(actModel)
-            call.respondText("Customer stored correctly", status = HttpStatusCode.Created)
+            call.respondText("Act stored correctly", status = HttpStatusCode.Created)
         }
         delete("{id?}") {
             val id = call.parameters["id"] ?: return@delete call.respond(HttpStatusCode.BadRequest)

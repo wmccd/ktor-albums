@@ -4,6 +4,7 @@ package com.example.routes
 //}
 
 import com.example.models.*
+import com.google.gson.Gson
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -33,18 +34,19 @@ fun Route.albumRouting() {
                 )
             call.respond(album.toString())
         }
-//        post {
-//            val customer = call.receive<Customer>()
-//            customerStorage.add(customer)
-//            call.respondText("Customer stored correctly", status = HttpStatusCode.Created)
-//        }
-//        delete("{id?}") {
-//            val id = call.parameters["id"] ?: return@delete call.respond(HttpStatusCode.BadRequest)
-//            if (customerStorage.removeIf { it.id == id }) {
-//                call.respondText("Customer removed correctly", status = HttpStatusCode.Accepted)
-//            } else {
-//                call.respondText("Not Found", status = HttpStatusCode.NotFound)
-//            }
-//        }
+        post {
+            val albumJson = call.receive<String>()
+            val albumModel = Gson().fromJson(albumJson, Album::class.java)
+            albumStorage.add(albumModel)
+            call.respondText("Album stored correctly", status = HttpStatusCode.Created)
+        }
+        delete("{id?}") {
+            val id = call.parameters["id"] ?: return@delete call.respond(HttpStatusCode.BadRequest)
+            if (albumStorage.removeIf { it.id == id }) {
+                call.respondText("Album removed correctly", status = HttpStatusCode.Accepted)
+            } else {
+                call.respondText("Not Found", status = HttpStatusCode.NotFound)
+            }
+        }
     }
 }
