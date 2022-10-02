@@ -2,9 +2,32 @@
 
 Ktor is the standard mechanism for building web service APIs in Kotlin
 
+The home page
+
+https://ktor.io/
+
+The quick project template generator: 
+
+https://start.ktor.io
+
+Examples and Samples
+
+https://ktor.io/learn/
+
+---
 The example app in this repository is for musical acts and their albums
 
-## Curl Statements
+## Static Pages
+
+To serve static content, we can use a specific routing function already built into Ktor named *static*. The function takes two parameters: the route under which the static content should be made available, and a lambda where we can define the location from where the content should be served.
+
+    fun Route.staticRouting() {
+        static("/static") {
+            resources("files")
+        }
+    }
+
+## Curl Statements For the REST API
 
 ### GET
 
